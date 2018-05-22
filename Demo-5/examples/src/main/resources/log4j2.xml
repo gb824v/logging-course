@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%msg%n"/>
+        </Console>
+
+        <File name="aFileAppender" fileName="logs/test.log" append="false">
+            <PatternLayout>
+                <Pattern>%msg%n</Pattern>
+            </PatternLayout>
+        </File>
+
+        <RollingFile name="RollingFileAppender"
+                     fileName="logs/app-roller.log"
+                     filePattern="logs/app-%d{MM-dd-yyyy}-%i.log">
+            <PatternLayout>
+                <Pattern>%m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50 KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="3" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+
+        <logger name="pukteam.course.logging.examples.basic.AClassThatDoesSomething" level="debug">
+            <AppenderRef ref="aFileAppender"/>
+            <AppenderRef ref="RollingFileAppender"/>
+        </logger>
+
+        <logger name="pukteam.course.logging.examples.basic.Main" level="info">
+            <AppenderRef ref="Console"/>
+        </logger>
+
+        <Root level="FATAL">
+        </Root>
+
+    </Loggers>
+</Configuration>
